@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+        body {
+            font: 12px "Lucida Sans Unicode", "Trebuchet MS", Arial, Helvetica;
+            margin: 0;
+            background-color: #D9DEE2;
+        }
+
+        #login {
+            background-color: #FFF;
+            height: 240px;
+            width: 400px;
+            margin: -150px 0 0 -230px;
+            padding: 30px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 0;
+            border-radius: 3px;
+            box-shadow: 
+                0 0 2px rgba(0, 0, 0, 0.2),
+                0 1px 1px rgba(0, 0, 0, .2),
+                0 3px 0 #FFF,
+                0 4px 0 rgba(0, 0, 0, .2),
+                0 6px 0 #FFF,
+                0 7px 0 rgba(0, 0, 0, .2);
+        }
+
+        fieldset {
+            border: 0;
+            padding: 0;
+            margin: 0;
+        }
+
+        #inputs input {
+            padding: 15px 15px 15px 30px;
+            margin: 0 0 10px 0;
+            width: 353px; /*353 + 3 + 45 = 400*/
+            border: 1px solid #CCC;
+            border-radius: 5px;
+            box-shadow: 0 1px 1px #CCC inset, 0 1 px 0 #FFF;
+        }
+
+        #inputs input:focus {
+            background-color: #FFF;
+            border-color: #E8C291;
+            outline: none;
+            box-shadow: 0 0 0 1px #E8C291 inset;
+        }
+
+        #actions {
+            margin: 25px 0 0 0;
+        }
+
+        #submit {
+            background-color: #FFB94B;
+            border-radius: 3px;
+            text-shadow: 0 1px 0 raga(255, 255, 255, 0.5);
+            box-shadow: 0 0 1px rgba(0, 0 , 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #d69e31 #e3a037 #d5982d #e3a037;
+            float: left;
+            height: 35px;
+            padding: 0;
+            width: 120px;
+            /* cursoar: pointer; */
+            font: bold 15px Arial, Helvetica;
+            color: #8F5A0A;
+        }
+
+        #actions a {
+            color: #3151A2;
+            float: right;
+            line-height: 35px;
+            margin-left: 10px;
+        }
+
+
+
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <form action="" id="login">
+        <h1>登录</h1>
+        <fieldset id="inputs">
+            <input id="username" type="text" placeholder="用户名" autofocus required>
+            <input id="password" type="password" placeholder="密码" required>
+        </fieldset>
+        <fieldset id="actions">
+            <input type="submit" id="submit" value="登录">
+            <a href="">忘记密码？</a>
+            <a href="">注册新用户</a>
+        </fieldset>
+    </form>
+</body>
+</html>

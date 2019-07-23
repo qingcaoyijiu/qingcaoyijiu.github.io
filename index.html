@@ -6,7 +6,23 @@
     <link rel="stylesheet" href="cssOfIndex.css">
 </head>
 <body>
-    <h2>青草依旧的主页</h2>
+    <input type="text" placeholder="请输入密码">
+    <button>确定</button>
+    <script type="text/javascript">
+        var input = document.getElementsByTagName('input')[0];
+        var button = document.getElementsByTagName('button')[0];
+        var flag = false;
+        button.onclick = function () {
+            var str = input.value;
+            if (str == "52552") {
+                var body = document.getElementsByTagName('body')[0];
+                body.innerHTML = '<h2>青草依旧的主页</h2><header id="page_header"><h1>ta</h1><nav><ul><li><a href="#">亲</a></li><li><a href="#">爱</a></li><li><a href="#">的</a></li><li><a href="#">你</a></li></ul></nav></header><section id="posts"><h2>主要履历</h2><article class="post">    <h2>高中</h2>    <header>        <h2>鹿邑县第二高级中学</h2>    </header>    <aside>        <h2>高三·十三班</h2>    </aside>    <p>他有一个漂亮的同桌，不知不觉爱上了她。</p>    <footer>        <h2>他深爱着她，她也是。</h2>    </footer></article><article class="post">    <h2>大学</h2>    <header>        <h2>苏州科技大学</h2>    </header>    <aside>        <h2>计算机1812</h2>    </aside>    <p>他每天都想念着她，他们十分相爱。</p>    <footer>        <h2>渴望着相见。</h2>    </footer></article></section><section id="sidebar"><h2>旁白</h2><header><h2>见证他们的爱情</h2></header><nav><h3></h3><ul><li><a href="https://qingcaoyijiu.github.io/fristGoPlay.html">第一次出去玩</a></li><li><a href="#">第一件礼物</a></li><li><a href="#">第一次去找她</a></li><li><a href="#">永远爱着她</a></li></ul></nav></section><footer id="page_footer"><h2>他们注定修成正果。</h2></footer>'
+            }  
+        };
+        // while (!flag) {}
+
+    </script>
+    <!-- <h2>青草依旧的主页</h2>
     <header id="page_header">
         <h1>ta</h1>
         <nav>
@@ -66,6 +82,6 @@
 
     <footer id="page_footer">
         <h2>他们注定修成正果。</h2>
-    </footer>
+    </footer> -->
 </body>
 </html>

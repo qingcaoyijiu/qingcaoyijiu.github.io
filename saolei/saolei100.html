@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #DDF3FF;
+        }
+
+        ul {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-top: -170px;
+            margin-left: -170px;
+            display: block;
+            width: 340px;
+            height: 340px;
+        }
+
+        li {
+            display: block;
+            float: left;
+            width: 32px;
+            height: 32px;
+            border: 1px solid black;
+            background-color: rgb(203, 150, 255);
+        }
+
+    </style>
+</head>
+<body>
+    <ul type="none">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+
+<script type="text/javascript">
+    // 埋雷
+    var arrayBomb = new Array();
+    var count = 0;
+    do {
+        var a = Number.parseInt(Math.random()*100);
+        if (!arrayBomb[a]) {
+            arrayBomb[a] = true;
+            count++;
+        }
+    } while (count < 10);
+
+    // 点了没雷的地方的次数
+    var clickLeft = 0;
+
+    // 周围索引分布
+    var roundIndexArray = new Array();
+    for (var i = 0; i < 100; i ++) {
+        if (i == 0) {
+            roundIndexArray[i] = [1, 10, 11];
+        } else if (i == 9) {
+            roundIndexArray[i] = [8, 18, 19];
+        } else if (i == 90) {
+            roundIndexArray[i] = [80, 81, 91];
+        } else if (i == 99) {
+            roundIndexArray[i] = [88, 89, 98];
+        } else if (i % 10 == 0) {
+            roundIndexArray[i] = [i-10, i-9, i+1, i+10, i+11];
+        } else if (i % 10 == 9) {
+            roundIndexArray[i] = [i-11, i-10, i-1, i+9, i+10];
+        } else if (i < 9) {
+            roundIndexArray[i] = [i-1, i+1, i+9, i+10, i+11];
+        } else if (i > 90) {
+            roundIndexArray[i] = [i-11, i-10, i-9, i-1, i+1];
+        } else {
+            roundIndexArray[i] = [i-11, i-10, i-9, i-1, i+1, i+9, i+10, i+11];
+        }
+    }
+
+    // 计算周围雷数
+    var roundBombsArray = new Array();
+    for (var i = 0; i < 100; i ++) {
+        roundBombsArray[i] = 0;
+    }
+    for (var i = 0; i < 100; i ++) {
+        for (var j = 0; j < roundIndexArray[i].length; j ++) {
+            if (arrayBomb[roundIndexArray[i][j]]) {
+                roundBombsArray[i] ++;
+            }
+        }
+    }
+
+    // 点击事件
+    var lis = document.getElementsByTagName('li');
+    for (var i = 0; i < 100; i ++) {
+        (function(can){
+            lis[can].oncontextmenu = function(e) {
+                if (this.style.backgroundImage) {
+                    this.style.backgroundImage = "";
+                } else {
+                    this.style.backgroundImage= "url(img/红旗.png)";
+                }
+                return false;
+            }
+            lis[can].onclick = function (e) {
+                this.onclick = function(e){}
+                this.oncontextmenu = function(e){return false;}
+                if (arrayBomb[can]) {
+                    for (var i = 0; i < 100; i ++) {
+                        if (arrayBomb[i]) {
+                            lis[i].style.backgroundImage = "url(img/炸弹.png)";
+                        }
+                    }
+                    setTimeout(function (e) {
+                        alert("你输了！");
+                        removeClick();
+                    }, 50);
+                } else {
+                    clickLeft ++;
+                    if (roundBombsArray[can] == 0) {
+                        this.style.backgroundColor = "rgb(255, 255, 255)";
+                        for (var i = 0; i < roundIndexArray[can].length; i ++) {
+                            lis[roundIndexArray[can][i]].onclick();
+                        }
+                    } else {
+                        this.style.backgroundColor = "rgb(255, 255, 255)";
+                        this.style.backgroundImage = "url(img/" + roundBombsArray[can] + ".png)";
+                    }
+                    if (clickLeft == 90) {
+                        setTimeout(function (e) {
+                            alert("你赢了！");
+                            removeClick();
+                        }, 50);
+                    }
+                }
+            }
+        }(i));
+    }
+
+    function removeClick () {
+        for (var i = 0; i < 100; i ++) {
+            lis[i].onclick = function () {};
+        }
+    }
+
+
+    // setInterval(function () {
+        
+    // }, 50);
+
+
+    // for (var i = 0; i < 100; i ++) {
+    //     if (arrayBomb[i]) {
+    //         lis[i].style.backgroundImage = "url(img/炸弹.png)";
+    //     } else {
+    //         lis[i].style.backgroundImage = "url(img/" + roundBombsArray[i] + ".png)";  
+    //     }
+    // }
+
+</script>
+
+
+</html>

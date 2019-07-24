@@ -166,7 +166,7 @@
             arrayBomb[a] = true;
             count++;
         }
-    } while (count < 10);
+    } while (count < 20);
 
     // 点了没雷的地方的次数
     var clickLeft = 0;
@@ -244,7 +244,7 @@
                         this.style.backgroundColor = "rgb(255, 255, 255)";
                         this.style.backgroundImage = "url(img/" + roundBombsArray[can] + ".png)";
                     }
-                    if (clickLeft == 90) {
+                    if (clickLeft == 80) {
                         setTimeout(function (e) {
                             alert("你赢了！");
                             removeClick();

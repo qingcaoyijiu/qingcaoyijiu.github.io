@@ -18,11 +18,11 @@
             position: fixed;
             top: 50%;
             left: 50%;
-            margin-top: -170px;
-            margin-left: -170px;
+            margin-top: -180px;
+            margin-left: -180px;
             display: block;
-            width: 340px;
-            height: 340px;
+            width: 360px;
+            height: 360px;
         }
 
         li {
@@ -30,18 +30,22 @@
             float: left;
             width: 32px;
             height: 32px;
-            border: 1px solid black;
-            background-color: rgb(203, 150, 255);
+            border: 2px solid;
+            border-color: #fff #a1a1a1 #a1a1a1 #fff;
+            background: #CCC;
         }
 
         img {
             width: 0;
             height: 0;
         }
+
     </style>
 </head>
 <body>
+
     <button style='width: 100px; position: fixed; top: 5%; left: 50%; margin-left: -50px;' onclick='window.location.reload();'>重新开始</button>
+
     <img src="img/1.png" alt="">
     <img src="img/2.png" alt="">
     <img src="img/3.png" alt="">
@@ -167,7 +171,7 @@
             arrayBomb[a] = true;
             count++;
         }
-    } while (count < 20);
+    } while (count < 15);
 
     // 点了没雷的地方的次数
     var clickLeft = 0;
@@ -227,9 +231,11 @@
                 if (arrayBomb[can]) {
                     for (var i = 0; i < 100; i ++) {
                         if (arrayBomb[i]) {
+                            lis[i].style.backgroundColor = "#FFF";
                             lis[i].style.backgroundImage = "url(img/炸弹.png)";
                         }
                     }
+                    this.style.backgroundColor = "#F00";
                     setTimeout(function (e) {
                         alert("你输了！");
                         removeClick();
@@ -237,12 +243,12 @@
                 } else {
                     clickLeft ++;
                     if (roundBombsArray[can] == 0) {
-                        this.style.backgroundColor = "rgb(255, 255, 255)";
+                        this.style.backgroundColor = "#FFF";
                         for (var i = 0; i < roundIndexArray[can].length; i ++) {
                             lis[roundIndexArray[can][i]].onclick();
                         }
                     } else {
-                        this.style.backgroundColor = "rgb(255, 255, 255)";
+                        this.style.backgroundColor = "#FFF";
                         this.style.backgroundImage = "url(img/" + roundBombsArray[can] + ".png)";
                     }
                     if (clickLeft == 80) {

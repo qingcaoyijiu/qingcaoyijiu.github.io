@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta lang="zh">
+    <title>实验1-3</title>
+
+    <style type="text/css">
+
+        span {
+            display: inline-block;
+            width: 64px;
+            border: 1px dotted black;
+        }
+
+    </style>
+</head>
+<body>
+    <form action="">
+
+        <span>00:00:00</span>
+        <input type="radio" name="state">启动时钟
+        <input type="radio" name="state" checked>停止时钟
+
+    </form>
+
+</body>
+
+<script type="text/javascript">
+
+
+    var span = document.getElementsByTagName('span')[0];
+
+    var inputs = document.getElementsByTagName('input');
+    var on = inputs[0];
+    var off = inputs[1];
+
+    on.onchange = function() {
+        var timer = setInterval(function () {
+            setSpan();
+        }, 200);
+        off.onchange = function () {
+            clearInterval(timer);
+        }
+    }
+
+    function setSpan() {
+        var date = new Date();
+        span.innerHTML = date.toTimeString().split(" ")[0];
+    }
+
+    
+</script>
+
+</html>

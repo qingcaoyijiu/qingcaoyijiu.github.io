@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta lang="zh">
+    <title>实验1-1</title>
+
+    <style type="text/css">
+
+        table {
+            border-color: #ddd;
+            font-size: 14px;
+        }
+
+        th {
+            font-weight: inherit;
+            text-align: left;
+        }
+
+        .gray {
+            background-color: #f7f6f6;
+        }
+
+        .alive {
+            background-color: #efefef;
+        }
+    
+    </style>
+</head>
+<body>
+
+    <table width="100%" border="1" cellspacing="0">
+        <caption>我的表格</caption>
+        <tr class="gray">
+            <th>学年</th>
+            <th>学期</th>
+            <th>班级名称</th>
+            <th>课程名称</th>
+            <th>任课教师</th>
+            <th>选课课号</th>
+            <th>课程性质</th>
+            <th>开课状态</th>
+            <th>周课时</th>
+            <th>起止周</th>
+            <th>总学时</th>
+            <th>考核方式</th>
+        </tr>
+        <tr>
+            <td>2018-2019</td>
+            <td>1</td>
+            <td>计算机z1611,计算机z1612</td>
+            <td>面向对象技术</td>
+            <td>丁漪杰</td>
+            <td>(2018-2019-1)-EI24Z02-32061-1</td>
+            <td>核心必修课</td>
+            <td>已开</td>
+            <td>4.0-0.0</td>
+            <td>01-17</td>
+            <td>64</td>
+            <td>考试</td>
+        </tr>
+        <tr class="gray">
+            <td>2018-2019</td>
+            <td>1</td>
+            <td>2018级</td>
+            <td>面向对象技术</td>
+            <td>丁漪杰</td>
+            <td>(2018-2019-1)-EI24Z02-32126-1</td>
+            <td>核心必修课</td>
+            <td>已开</td>
+            <td>3.0-0.0</td>
+            <td>07-15</td>
+            <td>27</td>
+            <td>考试</td>
+        </tr>
+        <tr>
+            <td>2018-2019</td>
+            <td>1</td>
+            <td>计算机1611,计算机1612</td>
+            <td>Web应用开发技术基础</td>
+            <td>丁漪杰</td>
+            <td>(2018-2019-1)-EI272003-32101-1</td>
+            <td>学科任选课</td>
+            <td>已开</td>
+            <td>2.0-0.0</td>
+            <td>01-17</td>
+            <td>32</td>
+            <td>考察</td>
+        </tr>
+        <tr>
+            <td colspan="12">1</td>
+        </tr>
+    </table>
+
+
+</body>
+
+<script type="text/javascript">
+
+    var trs = document.getElementsByTagName('tr');
+    var tr2 = trs[1];
+    var tr4 = trs[3];
+    
+    function enter(e) {
+        this.className = "alive";
+    }
+
+    function leave(e) {
+        this.className = "";
+    }
+
+    tr2.onmouseenter = enter;
+    tr2.onmouseleave = leave;
+    tr4.onmouseenter = enter;
+    tr4.onmouseleave = leave;
+    
+</script>
+
+</html>

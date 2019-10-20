@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta lang="zh">
+    <title>实验2-2</title>
+
+    <style type="text/css">
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .main {
+            width: 600px;
+            height: 300px;
+            border: 1px solid black;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
+        .one {
+            width: 200px;
+            height: 130px;
+            border: 1px dotted black;
+            margin-top: 5px;
+            margin-left: 5px;
+        }
+
+        .two {
+            width: 370px;
+            height: 130px;
+            margin-top: -132px;
+            margin-left: 220px;
+            margin-right: 5px;
+            border: 1px dotted black;
+        }
+
+        .three {
+            margin-top: 10px;
+            height: 50px;
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+        }
+
+        .xuan button {
+            margin-top: 6px;
+            margin-left: 25px;
+            width: 150px;
+            height: 40px;
+            background-color: #3385ff;
+            color: white;
+            border: none;
+            border-radius: 3px;
+        }
+
+        .xuan input {
+            position: fixed;
+            height: 40px;
+            width: 150px;
+            margin-top: 84px;
+            margin-left: -112px;
+            opacity: 0;
+        }
+
+        .wjm {
+
+            height: 50px;
+        }
+
+    </style>
+ 
+</head>
+<body>
+   <div class="main">
+        <form action="">
+            <div class="one">
+                <div class="xuan">
+                    <img src="图片.png" alt="" style="margin-left: 68px; margin-top: 10px;">
+                    <input class="w" type="file" multiple>
+                    <button>点击选择文件</button>
+                </div>
+            </div>
+            <div class="two">
+
+            </div>
+            <div class="three">
+                <span style="display:inline-block; width: 370px;">选中0张文件，共0KB。</span>
+                <input class="w" type="file" multiple style="position: fixed; margin-top: 5px; height: 40px; width: 100px; opacity: 0;">
+                <button style="width: 100px; height: 40px; margin-top: 5px; border: 1px solid gray; background-color: white; border-radius: 3px;">继续选择</button>
+                <button style="width: 100px; height: 40px; margin-top: 5px; border: none; background-color: #3385ff; margin-left: 8px; border-radius: 3px; color: white;">开始上传</button>
+            </div>
+        </form> 
+        <div class="xianshi" style="height: 100px;"></div>
+   </div>
+</body>
+
+<script type="text/javascript">
+    var counts = 0;
+    var daxiao = 0;
+    var w1 = document.getElementsByClassName('w')[0];
+    var w2 = document.getElementsByClassName('w')[1];
+    w1.onchange = function (e) {
+        var files = e.target.files;
+        for (var i = 0; i < files.length; i ++) {
+            var f = files[i];
+            daxiao += f.size;
+            counts ++;
+            var reader = new FileReader();
+            reader.readAsDataURL(f);
+            reader.onload = function (f) {
+                document.getElementsByClassName('xianshi')[0].innerHTML += '<img src="' + this.result + '"alt="" style="width: 100px; height:50px; margin-top: 25px; margin-left:10px;"/>';
+            }
+            document.getElementsByTagName('span')[0].innerHTML = "选中" + counts + "张文件，共" + Number.parseInt(daxiao / 10.24) / 100 + "KB。";
+            document.getElementsByClassName('two')[0].innerHTML += '<p>' + f.name + '</p>';
+        }
+    }
+    w2.onchange = w1.onchange;
+</script>
+</html>

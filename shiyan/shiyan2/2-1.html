@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta lang="zh">
+    <title>实验2-1</title>
+    <style type="text/css">
+        * {
+            margin-top: 3px;
+        }
+
+        .title {
+            font-size: 24px;
+            color: blue;
+            font-family: '宋体';
+        }
+        
+        .tab {
+            display: inline-block;
+            width: 320px;
+        }
+
+        .must {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <form action="">
+        <span class="title">手机品牌调查表</span>
+        <br>
+
+        <span class="tab">请输入您的姓名：</span>
+        <input type="text" name="name">
+        <br>
+
+        <span class="tab">性别：</span>
+        <input type="radio" value="男" name="sex" checked>男</input>
+        <input type="radio" value="女" name="sex">女</input>
+        <br>
+
+        <span class="tab">邮箱：</span>
+        <input type="email" name="email">
+        <br>
+
+        <span class="tab">1.您使用过多少部手机：</span>
+        <select name="counts" id="">
+            <option value="1">1部</option>
+            <option value="2">2部</option>
+            <option value="3">3部</option>
+            <option value="4">4部</option>
+            <option value="5">5部</option>
+        </select>
+        <br>
+        <span class="tab">最早什么时候看是使用手机的：</span>
+        <input type="date" name="date">
+        <br>
+
+        <span class="must">2.如果让你从下面品牌中选择，你会选择哪部品牌？</span>
+        <br>
+        <input type="checkbox" name="xinghao" value="苹果">苹果</input>
+        <input type="checkbox" name="xinghao" value="华为">华为</input>
+        <input type="checkbox" name="xinghao" value="HTC">HTC</input>
+        <input type="checkbox" name="xinghao" value="OPPO">OPPO</input>
+        <input type="checkbox" name="xinghao" value="三星">三星</input>
+        <input type="checkbox" name="xinghao" value="摩托罗拉">摩托罗拉</input>
+        <br>
+
+        <span class="must">3.如果让您更换手机，您将关注下列哪些功能是否具备？</span>
+        <br>
+        <input type="checkbox" name="gongneng" value="影视音乐">影视音乐</input>
+        <input type="checkbox" name="gongneng" value="游戏娱乐">游戏娱乐</input>
+        <input type="checkbox" name="gongneng" value="摄像功能">摄像功能</input>
+        <br>
+        <input type="checkbox" name="gongneng" value="信息存储容量">信息存储容量</input>
+        <input type="checkbox" name="gongneng" value="机型外观">机型外观</input>
+        <input type="checkbox" name="gongneng" value="电池使用时长">电池使用时长</input>
+        <br>
+
+        <span>4.请您描述以下在您心目中一部理想的手机是哪种类型？</span>
+        <br>
+        <textarea name="textarea" id="" cols="43" rows="6"></textarea>
+        <br>
+        <button>提交</button>
+        <button>重设</button>
+    </form>
+</body>
+</html>

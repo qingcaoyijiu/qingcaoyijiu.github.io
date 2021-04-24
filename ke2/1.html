@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta lang="zh">
+    <title>倒库模拟器</title>
+</head>
+<body>
+    
+<!-- 倒车入库的场地设置如下：
+道路总长为15.9米，单边长为6.8(340)米，宽为6.8(340)米。
+车库长为5.25(262)米，宽为2.3(115)米。倒车入库评判标准：1.不按规定路线、顺序行驶的，不合格；2.车身出线的，不合格；3.倒库不入的，不合格；4.中途停车的，不合格；5.超过4分钟，不合格。
+车长4.53(226)，宽1.7(85)米 -->
+
+
+    <div style="margin: 50px; margin-top:20px; float: left;">
+        <canvas width=1100 height=670 style="margin-left:20px; border: 1px solid black;"></canvas>
+    </div>
+    
+    <div style="float: left;">
+        <img src="swa.jpg" alt="" width="200px" height="200px" style="transform:rotate(0deg)">
+    </div>
+
+
+
+
+</body>
+
+<script>
+    var canvas = document.getElementsByTagName('canvas')[0];
+    var ctx = canvas.getContext("2d");
+    var pi = Math.PI;
+
+    function drawChangdi() {
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(1100, 0);
+
+        ctx.moveTo(0, 340);
+        ctx.lineTo(492, 340);
+        ctx.lineTo(492, 602);
+        ctx.lineTo(607, 602)
+        ctx.lineTo(607, 340);
+        ctx.lineTo(1100, 340);
+        ctx.stroke();
+        
+        
+        ctx.beginPath();
+        ctx.setLineDash([60, 30]);
+        ctx.moveTo(152, 0);
+        ctx.lineTo(152, 340);
+
+        ctx.moveTo(947, 0);
+        ctx.lineTo(947, 340);
+
+        ctx.setLineDash([0, 29, 57, 29]);
+        ctx.moveTo(492, 340);
+        ctx.lineTo(607, 340);
+        ctx.stroke();
+        ctx.setLineDash([]);
+    }
+
+    // 前轮在车的0.218，后轮在车的0.735
+    var x_lt, y_lt,
+        x_rt, y_rt,
+        x_rw, y_rw,
+        x_lw, y_lw;
+    var nowa = -pi/2;
+    var swa = 0;
+    var nowca = swa / 12 / 180 * pi;
+    var cx_lt, cy_lt,
+        cx_rt, cy_rt,
+        cx_rw, cy_rw,
+        cx_lw, cy_lw;
+    var ctk = 0.218,
+        cwk = 0.735;
+
+    function drawCar(x, y, a){
+        // 规定头朝上时a=0，朝右为正，左为负
+        // (x, y)为左头坐标
+        // 左车头
+        x_lt = x;
+        y_lt = y;
+        // 右车头
+        x_rt = x + 85*Math.cos(a);
+        y_rt = y - 85*Math.sin(a);
+        // 左车尾
+        x_lw = x + 226*Math.sin(a);
+        y_lw = y + 226*Math.cos(a);
+        // 右车尾
+        x_rw = x_rt + 226*Math.sin(a);
+        y_rw = y_rt + 226*Math.cos(a);
+        // 左前轮
+        cx_lt = x_lt * (1 - ctk) + x_lw * ctk;
+        cy_lt = y_lt * (1 - ctk) + y_lw * ctk;
+        // 右前轮
+        cx_rt = x_rt * (1 - ctk) + x_rw * ctk;
+        cy_rt = y_rt * (1 - ctk) + y_rw * ctk;
+        // 左后轮
+        cx_lw = x_lt * (1 - cwk) + x_lw * cwk; 
+        cy_lw = y_lt * (1 - cwk) + y_lw * cwk;
+        // 右后轮
+        cx_rw = x_rt * (1 - cwk) + x_rw * cwk;
+        cy_rw = y_rt * (1 - cwk) + y_rw * cwk;
+
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        // 车头为蓝色
+        ctx.strokeStyle = "blue";
+        ctx.lineTo(x_rt, y_rt);
+        ctx.stroke();
+
+        ctx.strokeStyle = "gray";
+
+        ctx.beginPath();
+        ctx.moveTo(x_rt, y_rt);
+        ctx.lineTo(x_rw, y_rw);
+        ctx.lineTo(x_lw, y_lw);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+    }
+
+    drawChangdi();
+    drawCar(100, 100, -pi/2);
+
+    var body = document.getElementsByTagName('body')[0];
+    var img = document.getElementsByTagName('img')[0];
+
+    body.onkeypress = key;
+
+    function key(e) {
+        switch (e.key){
+            case "4" : case "a" : {
+                if (swa == 500){
+                    break;
+                } else {
+                    swa += 5;
+                }
+                img.style.transform = "rotate(" + -swa + "deg)";
+                nowca = swa / 12 / 180 * pi;
+                break;
+            }
+            case "6" : case "d" : {
+                if (swa == -500){
+                    break;
+                } else {
+                    swa -= 5;
+                }
+                img.style.transform = "rotate(" + -swa + "deg)";
+                nowca = swa / 12 / 180 * pi;
+                break;
+            }
+            case "8" : case "w" : {
+                if (nowca == 0){
+                    x_lt -= 2*Math.sin(nowa);
+                    y_lt -= 2*Math.cos(nowa);
+                    ctx.clearRect(0, 0, 1100, 670);
+                    drawChangdi();
+                    drawCar(x_lt, y_lt, nowa);
+                } else if(nowca > 0) {
+                    var c = 117 / Math.sin(nowca);
+                    var a = c * Math.cos(nowca + nowa);
+                    var b = c * Math.sin(nowca + nowa);
+                    var yuanxin_x = cx_lt - a;
+                    var yuanxin_y = cy_lt + b;
+                    var jiaodu = nowca + nowa + pi / (45 / nowca * 10);
+                    nowa += pi / (45 / nowca * 10);
+                    cx_lt = yuanxin_x + c * Math.cos(jiaodu);
+                    cy_lt = yuanxin_y - c * Math.sin(jiaodu);
+                    x_lt = cx_lt - 226 * 0.218 * Math.sin(nowa);
+                    y_lt = cy_lt - 226 * 0.218 * Math.cos(nowa);
+                    ctx.clearRect(0, 0, 1100, 670);
+                    drawChangdi();
+                    drawCar(x_lt, y_lt, nowa);
+                } else if (nowca < 0) {
+                    var c = 117 / Math.sin(nowca);
+                    var a = c * Math.cos(nowca + nowa);
+                    var b = c * Math.sin(nowca + nowa);
+                    var yuanxin_x = cx_rt - a;
+                    var yuanxin_y = cy_rt + b;
+                    var jiaodu = nowca + nowa + pi / (45 / nowca * 10);
+                    nowa += pi / (45 / nowca * 10);
+                    cx_rt = yuanxin_x + c * Math.cos(jiaodu);
+                    cy_rt = yuanxin_y - c * Math.sin(jiaodu);
+                    x_rt = cx_rt - 226 * 0.218 * Math.sin(nowa);
+                    y_rt = cy_rt - 226 * 0.218 * Math.cos(nowa);
+                    x_lt = x_rt - 85*Math.cos(nowa);
+                    y_lt = y_rt + 85*Math.sin(nowa);
+                    ctx.clearRect(0, 0, 1100, 670);
+                    drawChangdi();
+                    drawCar(x_lt, y_lt, nowa);
+                }
+                break;
+            }
+            case "2" : case "s" : {
+                if (nowca == 0){
+                    x_lt += 2*Math.sin(nowa);
+                    y_lt += 2*Math.cos(nowa);
+                    ctx.clearRect(0, 0, 1100, 670);
+                    drawChangdi();
+                    drawCar(x_lt, y_lt, nowa);
+                } else if (nowca > 0) {
+                    var c = 117 / Math.sin(nowca);
+                    var a = c * Math.cos(nowca + nowa);
+                    var b = c * Math.sin(nowca + nowa);
+                    var yuanxin_x = cx_lt - a;
+                    var yuanxin_y = cy_lt + b;
+                    var jiaodu = nowca + nowa - pi / (45 / nowca * 10);
+                    nowa -= pi / (45 / nowca * 10);
+                    cx_lt = yuanxin_x + c * Math.cos(jiaodu);
+                    cy_lt = yuanxin_y - c * Math.sin(jiaodu);
+                    x_lt = cx_lt - 226 * 0.218 * Math.sin(nowa);
+                    y_lt = cy_lt - 226 * 0.218 * Math.cos(nowa);
+                    ctx.clearRect(0, 0, 1100, 670);
+                    drawChangdi();
+                    drawCar(x_lt, y_lt, nowa);
+                } else if (nowca < 0){
+                    var c = 117 / Math.sin(nowca);
+                    var a = c * Math.cos(nowca + nowa);
+                    var b = c * Math.sin(nowca + nowa);
+                    var yuanxin_x = cx_rt - a;
+                    var yuanxin_y = cy_rt + b;
+                    var jiaodu = nowca + nowa - pi / (45 / nowca * 10);
+                    nowa -= pi / (45 / nowca * 10);
+                    cx_rt = yuanxin_x + c * Math.cos(jiaodu);
+                    cy_rt = yuanxin_y - c * Math.sin(jiaodu);
+                    x_rt = cx_rt - 226 * 0.218 * Math.sin(nowa);
+                    y_rt = cy_rt - 226 * 0.218 * Math.cos(nowa);
+                    x_lt = x_rt - 85*Math.cos(nowa);
+                    y_lt = y_rt + 85*Math.sin(nowa);
+                    ctx.clearRect(0, 0, 1100, 670);
+                    drawChangdi();
+                    drawCar(x_lt, y_lt, nowa);
+                }
+                break;
+            }
+        }
+    }
+
+
+</script>
+
+
+</html>
